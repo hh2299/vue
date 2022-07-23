@@ -4,12 +4,18 @@ pipeline {
     stage("build") {
       steps {
         echo 'building...'
-        sh 'npm install'
+        nodejs('Node-18.6.0'){
+          sh 'yarn install'
+          sh
+        }
       }
     }
     stage("test") {
       steps {
         echo 'testing...'
+        withGradle() {
+          sh './gradlew -v'
+        }
       }
     }
     stage("deploy") {
